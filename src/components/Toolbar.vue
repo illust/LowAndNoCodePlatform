@@ -37,7 +37,14 @@
             </div>
             <div class="canvas-config">
                 <span>画布比例</span>
-                <input v-model="scale" @input="handleScaleChange"> %
+                <el-input-number
+                    v-model="scale" 
+                    :min="50" 
+                    :max="500" 
+                    :step="10"
+                    @change="handleScaleChange"
+                >
+                </el-input-number> %
             </div>
         </div>
 
@@ -67,6 +74,7 @@ export default {
             timer: null,
             isScreenshot: false,
             scale: 100,
+            checkCode: '',
         }
     },
     computed: mapState([
@@ -82,6 +90,9 @@ export default {
         eventBus.$on('clearCanvas', this.clearCanvas)
 
         this.scale = this.canvasStyleData.scale
+    },
+    mounted() {
+        this.createCode()
     },
     methods: {
         handleScaleChange() {
@@ -182,6 +193,11 @@ export default {
         preview(isScreenshot) {
             this.isScreenshot = isScreenshot
             this.isShowPreview = true
+            let routeData = this.$router.resolve({
+                path: '/pages/' + this.checkCode,
+            })
+            console.log('fdfd', this.checkCode)
+            window.open(routeData.href, '_blank')
             this.$store.commit('setEditMode', 'preview')
         },
 
@@ -201,6 +217,21 @@ export default {
             this.isShowPreview = false
             this.$store.commit('setEditMode', 'edit')
         },
+        
+        // 随机ID生成
+        createCode() {
+            let code = ''// 声明一个空的字符串值用于后面赋值
+            const codeLength = 6 // 验证码的长度，可以根据个人需求改变
+            // eslint-disable-next-line array-element-newline, max-len
+            const random = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'] // 随机数的取值范围
+            for (let i = 0; i < codeLength; i++) {
+            // 循环遍历codeLength，值是几，就循环几次
+                let index = Math.floor(Math.random() * 62) // Math.floor方法用于返回小于或等于一个给定数字的最大整数；Math.random方法返回 0（含）和 1（不含）之间的随机数
+                code += random[index] // 根据索引取得随机数加到code上
+            }
+            this.checkCode = code // 把code值赋给data中定义好的checkCode
+        },
+
     },
 }
 </script>
@@ -229,7 +260,8 @@ export default {
         }
 
         span {
-            margin-left: 10px;
+            margin-left: 8px;
+            margin-right: 8px;
         }
     }
 

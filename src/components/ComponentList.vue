@@ -9,6 +9,7 @@
         >
             <span v-if="item.icon.substr(0,2) === 'el'" :class="item.icon"></span>
             <span v-else class="iconfont" :class="'icon-' + item.icon"></span>
+            <div class="text">{{ item.label }}</div>
         </div>
     </div>
 </template>
@@ -41,15 +42,17 @@ export default {
 
     .list {
         width: 80px;
-        height: 40px;
-        border: 1px solid #ddd;
+        height: 48px;
+        border: 2px solid #ddd;
+        margin-bottom: 1px !important;
         cursor: grab;
         text-align: center;
-        color: #333;
+        color: #441e1e;
         padding: 2px 5px;
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
 
         &:active {
             cursor: grabbing;
@@ -67,6 +70,12 @@ export default {
 
         .icon-tupian {
             font-size: 16px;
+        }
+
+        .text {
+            font-size: 5px;
+            font-family: sans-serif;
+            margin-top: 3px;
         }
     }
 }

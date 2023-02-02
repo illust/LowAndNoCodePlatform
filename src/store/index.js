@@ -80,6 +80,10 @@ const data = {
             state.canvasStyleData = style
         },
 
+        setCanvasBackground(state, bg) {
+            state.canvasStyleData.background = bg
+        },
+
         setCurComponent(state, { component, index }) {
             state.curComponent = component
             state.curComponentIndex = index

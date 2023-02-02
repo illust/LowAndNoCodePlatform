@@ -6,6 +6,25 @@
             <!-- 左侧组件列表 -->
             <section class="left">
                 <ComponentList />
+                <el-collapse v-model="activeName1" accordion>
+                    <el-collapse-item title="一致性 Consistency" name="1">
+                        <div>与现实生活一致</div>
+                        <div>在界面中一致</div>
+                    </el-collapse-item>
+                    <el-collapse-item title="反馈 Feedback" name="2">
+                        <div>控制反馈</div>
+                        <div>页面反馈</div>
+                    </el-collapse-item>
+                    <el-collapse-item title="效率 Efficiency" name="3">
+                        <div>简化流程</div>
+                        <div>清晰明确</div>
+                        <div>帮助用户</div>
+                    </el-collapse-item>
+                    <el-collapse-item title="可控 Controllability" name="4">
+                        <div>用户决策</div>
+                        <div>结果可控</div>
+                    </el-collapse-item>
+                </el-collapse>
                 <RealTimeComponentList />
             </section>
             <!-- 中间画布 -->
@@ -60,6 +79,7 @@ export default {
     data() {
         return {
             activeName: 'attr',
+            activeName1: '1',
             reSelectAnimateIndex: undefined,
         }
     },
@@ -164,6 +184,7 @@ export default {
             width: 288px;
             right: 0;
             top: 0;
+
             .el-select {
                 width: 100%;
             }
